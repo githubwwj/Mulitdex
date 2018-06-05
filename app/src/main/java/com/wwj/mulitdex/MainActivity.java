@@ -13,8 +13,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
+
+import dalvik.system.DexClassLoader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         //5  获取去当前工程的dexElements,把4步的dexElements插入到当前工程dexElements数组的最前面
 
 
-
     }
 
     /**
@@ -65,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         File cacheDir = getCacheDir();
         File dexFile = new File(cacheDir, dexFileName);  //内置卡的dexFile存放绝对路径
+        if (dexFile.exists()) {
+            dexFile.delete();
+        }
         File optimizationDir = new File(cacheDir, optimization);  //优化目录路径
         if (!optimizationDir.exists()) {
             optimizationDir.mkdirs();
@@ -75,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             bufferedInputStream = new BufferedInputStream(new FileInputStream(sdCardFile));
             bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(dexFile));
-            int len = 0;
             byte[] buff = new byte[1024 * 2];
-            while (bufferedInputStream.read(buff, 0, len) != -1) {
+            int len;
+            while ((len = bufferedInputStream.read(buff)) != -1) {
                 bufferedOutputStream.write(buff, 0, len);
                 bufferedOutputStream.flush();
             }
@@ -95,9 +101,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
     }
 
+
+    private Object getFieldObject(Object object, String className, String fieldName) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+        Class clazz = Class.forName(className);
+        Field field = clazz.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field.get(object);
+    }
 
     private void print() {
         ClassLoader classLoader = getClassLoader();
@@ -152,14 +164,6 @@ public class MainActivity extends AppCompatActivity {
 
         File fileDir = getFilesDir();
         Log.e("tag", "fileDir=" + fileDir.getAbsolutePath());
-    }
-
-    private Object getFieldObject(Object object, String className, String fieldName) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
-        Class clazz = Class.forName(className);
-        Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
-
-        return field.get(object);
     }
 
 
