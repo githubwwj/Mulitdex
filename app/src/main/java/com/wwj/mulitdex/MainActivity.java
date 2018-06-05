@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         //4  把dex文件加载到内存中,获取它的dexElements
         //5  获取去当前工程的dexElements,把4步的dexElements插入到当前工程dexElements数组的最前面
 
-
     }
 
     /**
@@ -84,10 +83,9 @@ public class MainActivity extends AppCompatActivity {
             byte[] buff = new byte[1024 * 2];
             int len;
             while ((len = bufferedInputStream.read(buff)) != -1) {
-                bufferedOutputStream.write(buff, 0, len);
+                bufferedOutputStream.write(buff,0,len);
                 bufferedOutputStream.flush();
             }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
