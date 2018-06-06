@@ -22,8 +22,7 @@ import dalvik.system.DexClassLoader;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String dexFileName = "out.dex";
-    public static final String optimization = "optimization";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnBugFix).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                fixBug();
-                moveFileToFlashDisk();
+                FixBugUtil.moveFileToFlashDisk(MainActivity.this);
+                FixBugUtil.fixBug(MainActivity.this);
             }
         });
 
@@ -55,59 +54,14 @@ public class MainActivity extends AppCompatActivity {
         //3  把dex文件存放到内置卡中
         //4  把dex文件加载到内存中,获取它的dexElements
         //5  获取去当前工程的dexElements,把4步的dexElements插入到当前工程dexElements数组的最前面
+        //  5.1  创建一个新数组
+        //  5.2  通过数组拷贝 把第4步的dexElements插入到数组最前面
+        //  5.3  通过数组拷贝 把第5步的dexElements插入到数组最前面
 
-    }
-
-    /**
-     * 移动文件到内置卡
-     */
-    private void moveFileToFlashDisk() {
-
-        File sdCardFile = new File(Environment.getExternalStorageDirectory(), dexFileName);
-
-        File cacheDir = getCacheDir();
-        File dexFile = new File(cacheDir, dexFileName);  //内置卡的dexFile存放绝对路径
-        if (dexFile.exists()) {
-            dexFile.delete();
-        }
-        File optimizationDir = new File(cacheDir, optimization);  //优化目录路径
-        if (!optimizationDir.exists()) {
-            optimizationDir.mkdirs();
-        }
-//        /out.dex     /optionDir
-        BufferedInputStream bufferedInputStream = null;
-        BufferedOutputStream bufferedOutputStream = null;
-        try {
-            bufferedInputStream = new BufferedInputStream(new FileInputStream(sdCardFile));
-            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(dexFile));
-            byte[] buff = new byte[1024 * 2];
-            int len;
-            while ((len = bufferedInputStream.read(buff)) != -1) {
-                bufferedOutputStream.write(buff,0,len);
-                bufferedOutputStream.flush();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                bufferedOutputStream.close();
-                bufferedInputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
     }
 
 
-    private Object getFieldObject(Object object, String className, String fieldName) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
-        Class clazz = Class.forName(className);
-        Field field = clazz.getDeclaredField(fieldName);
-        field.setAccessible(true);
-        return field.get(object);
-    }
 
     private void print() {
         ClassLoader classLoader = getClassLoader();
@@ -151,6 +105,13 @@ public class MainActivity extends AppCompatActivity {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public  Object getFieldObject(Object object, String className, String fieldName) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+        Class clazz = Class.forName(className);
+        Field field = clazz.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field.get(object);
     }
 
     private void getApkDir() {

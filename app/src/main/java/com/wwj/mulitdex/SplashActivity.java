@@ -20,6 +20,8 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         if(checkPermission()){
+            FixBugUtil.moveFileToFlashDisk(this);
+            FixBugUtil.fixBug(this);
             Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
             finish();

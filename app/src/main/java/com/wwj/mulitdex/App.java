@@ -1,6 +1,7 @@
 package com.wwj.mulitdex;
 
 import android.app.Application;
+import android.content.Context;
 import android.widget.Toast;
 
 /**
@@ -19,5 +20,13 @@ public class App extends Application {
                 ex.printStackTrace();
             }
         });
+
+
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+
     }
 }
