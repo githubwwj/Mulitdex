@@ -13,6 +13,10 @@
 |8|08_熟悉Android的类加载机制|https://www.iqiyi.com/w_19rzbr1uv1.html|
 |9|09_安装包存放在手机中的路径|https://www.iqiyi.com/w_19rzbklrot.html|
 |10|010_深入Android类加载机制和热修复原理|https://www.iqiyi.com/w_19rzbjvp1h.html|
+|11|11_Android热修复代码思路|https://www.iqiyi.com/w_19rz7swnup.html|
+|12|12_Android的SDCARD文件转移到内置卡中|https://www.iqiyi.com/w_19rz805fmh.html|
+|13|13_上一节课的两个错误|https://www.iqiyi.com/w_19rz7mkyt5.html|
+
 
 
 
