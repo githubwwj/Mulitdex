@@ -16,6 +16,7 @@
 |11|11_Android热修复代码思路|https://www.iqiyi.com/w_19rz7swnup.html|
 |12|12_Android的SDCARD文件转移到内置卡中|https://www.iqiyi.com/w_19rz805fmh.html|
 |13|13_上一节课的两个错误|https://www.iqiyi.com/w_19rz7mkyt5.html|
+|14|14_Android通过热修复修复BUG|http://www.iqiyi.com/w_19rz7x67jl.html|
 
 
 
