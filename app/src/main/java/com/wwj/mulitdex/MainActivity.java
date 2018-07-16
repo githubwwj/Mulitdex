@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         //5  获取去当前工程的dexElements,把4步的dexElements插入到当前工程dexElements数组的最前面
         //  5.1  创建一个新数组
         //  5.2  通过数组拷贝 把第4步的dexElements插入到数组最前面
-        //  5.3  通过数组拷贝 把第5步的dexElements插入到数组最前面
+        //  5.3  通过数组拷贝 把第5步的dexElements插入到数组后面
 
 
     }

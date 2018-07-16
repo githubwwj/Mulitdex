@@ -44,6 +44,7 @@ public class FixBugUtil {
 
         try {
             Object patchPathList = getFieldObject(dexClassLoader, "dalvik.system.BaseDexClassLoader", "pathList");
+            //补丁包patchDexElements对象
             Object patchDexElements = getFieldObject(patchPathList, "dalvik.system.DexPathList", "dexElements");
 
 
